@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/head_libraries :: libraries" />
+</head>
+<body>
+<h1>Welcome!</h1>
+    <p>Click <a th:href="@{/admin}">here</a> to see admin page.</p>
+    <p>Click <a th:href="@{/user}">here</a> to see user page.</p>
+</body>
+</html>
