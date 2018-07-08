@@ -1,0 +1,24 @@
+language: java
+jdk:
+  - oraclejdk8
+sudo: false
+install: true
+addons:
+  sonarcloud:
+    organization: "lukaszsieczkowski-github"
+    token:
+      secure: "6d34c5d6e27c980dafe069f680fd5c6a47259b67"
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+notifications:
+  slack:
+    rooms:
+      - hstplatform:4GSWctwkCjJywpIz39B1RCFc#general
+  on_start: always
+  on_success: always
+  on_failure: always
+
