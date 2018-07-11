@@ -20,7 +20,7 @@ public class Authority implements GrantedAuthority {
 
     private String role;
 
-   @ManyToMany(mappedBy = "authorities")
+    @ManyToMany(mappedBy = "authorities")
     private Set<ApplicationUser> appUsers = new HashSet<>();
 
     public Authority(Role role) {
@@ -30,12 +30,5 @@ public class Authority implements GrantedAuthority {
 
     public String getAuthority() {
         return role;
-    }
-
-    @Override
-    public String toString() {
-        return "Authority{" +
-                "role='" + role + '\'' +
-                '}';
     }
 }

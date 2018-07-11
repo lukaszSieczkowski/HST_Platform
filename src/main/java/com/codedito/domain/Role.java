@@ -4,7 +4,7 @@ import lombok.ToString;
 
 @ToString
 public enum Role {
-    ADMIN("ADMIN"), TEACHER("TEACHER"), STUDENT("STUDENT"), USER("USER");
+    ADMIN("ROLE_ADMIN"), USER("ROLE_USER");
 
     private String value;
 

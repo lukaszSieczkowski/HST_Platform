@@ -22,15 +22,15 @@ public class LoginController {
     }
 
 
-    @RequestMapping("/user")
+    @RequestMapping("protected/user/userpage")
     public String showUserPage(ModelMap model) {
-      //  model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-        return "secured/user/hello_user";
+        model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+        return "protected/user/user_page";
     }
 
-    @RequestMapping("/admin")
+    @RequestMapping("protected/admin/adminpage")
     public String showAdminPage(ModelMap model) {
-       // model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-        return "secured/admin/hello_admin";
+        model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+        return "protected/admin/admin_page";
     }
 }

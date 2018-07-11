@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BootstrapUser implements ApplicationListener<ContextRefreshedEvent> {
 
-    private AppUserRepository appUserRepository;
-    private PasswordEncoder passwordEncoder;
+    private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public BootstrapUser(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
