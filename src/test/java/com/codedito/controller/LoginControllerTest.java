@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -24,29 +25,39 @@ public class LoginControllerTest {
 
     @Test
     public void shouldLoginSuccessfulToUserPage() throws Exception {
-        mockMvc.perform(get("/protected/user/userpage")
+        mockMvc.perform(get("/main")
                 .with(user("user").password("pass").roles("USER")))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void shouldLoginSuccessfulToAdminPage() throws Exception {
-        mockMvc.perform(get("/protected/admin/adminpage")
+        mockMvc.perform(get("/main")
                 .with(user("admin").password("pass").roles("ADMIN")))
                 .andExpect(status().isOk());
     }
-
     @Test
-    public void shouldNotLoginToUserPageWithWrongRole() throws Exception {
-        mockMvc.perform(get("/protected/user/userpage")
-                .with(user("user").password("pass").roles("ADMIN")))
-                .andExpect(status().isForbidden());
+    public void shouldReturnMainView()throws Exception{
+        mockMvc.perform(get("/main")
+                .with(user("user").password("pass").roles("USER")))
+                .andExpect(view().name("protected/main"));
+    }
+    @Test
+    public void shouldReturnIndexView()throws Exception{
+        mockMvc.perform(get("/"))
+                .andExpect(view().name("index"));
+    }
+    @Test
+    public void shouldReturnLoginView()throws Exception{
+        mockMvc.perform(get("/login"))
+                .andExpect(view().name("login_page"));
+    }
+    @Test
+    public void shouldReturnForgotPasswordView()throws Exception{
+        mockMvc.perform(get("/forgot_password"))
+                .andExpect(view().name("forgot_password"));
     }
 
-    @Test
-    public void shouldNotLoginToAdminPageWithWrongRole() throws Exception {
-        final ResultActions resultActions = mockMvc.perform(get("/protected/admin/adminpage")
-                .with(user("admin").password("pass").roles("USER")))
-                .andExpect(status().isForbidden());
-    }
+
+
 }

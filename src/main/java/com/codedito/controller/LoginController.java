@@ -1,6 +1,5 @@
 package com.codedito.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +17,17 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String showLoginPage() {
-        return "login";
+        return "login_page";
     }
 
-
-    @RequestMapping("protected/user/userpage")
+    @RequestMapping("/main")
     public String showUserPage(ModelMap model) {
-        model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-        return "protected/user/user_page";
+        return "protected/main";
+    }
+    
+    @RequestMapping("/forgot_password")
+    public String showForgotPasswordForm(ModelMap model) {
+        return "forgot_password";
     }
 
-    @RequestMapping("protected/admin/adminpage")
-    public String showAdminPage(ModelMap model) {
-        model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-        return "protected/admin/admin_page";
-    }
 }
