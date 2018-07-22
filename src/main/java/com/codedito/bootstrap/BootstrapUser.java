@@ -33,7 +33,7 @@ public class BootstrapUser implements ApplicationListener<ContextRefreshedEvent>
                 .email("test@mail.com")
                 .accountNonExpired(true)
                 .accountNonLocked(true)
-                .credentialsNonExpired(true)
+                .credentialsNonExpired(false)
                 .enabled(true)
                 .authorities(Sets.newHashSet(new Authority(Role.USER))).build();
 
@@ -47,7 +47,18 @@ public class BootstrapUser implements ApplicationListener<ContextRefreshedEvent>
                 .enabled(true)
                 .authorities(Sets.newHashSet(new Authority(Role.ADMIN))).build();
 
+        ApplicationUser userWitchExpriredCredentials = ApplicationUser.builder()
+                .username("expiredCredentials")
+                .password(passwordEncoder.encode("pass"))
+                .email("test3@mail.com")
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(false)
+                .enabled(true)
+                .authorities(Sets.newHashSet(new Authority(Role.ADMIN))).build();
+
         appUserRepository.save(user);
         appUserRepository.save(admin);
+        appUserRepository.save(userWitchExpriredCredentials);
     }
 }

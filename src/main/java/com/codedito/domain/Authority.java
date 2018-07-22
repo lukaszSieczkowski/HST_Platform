@@ -27,7 +27,6 @@ public class Authority implements GrantedAuthority {
         this.role = role.getValue();
     }
 
-
     public String getAuthority() {
         return role;
     }
