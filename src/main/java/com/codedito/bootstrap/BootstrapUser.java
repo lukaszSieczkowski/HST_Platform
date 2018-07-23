@@ -28,9 +28,9 @@ public class BootstrapUser implements ApplicationListener<ContextRefreshedEvent>
 
     private void init() {
         ApplicationUser user = ApplicationUser.builder()
-                .username("user")
-                .password(passwordEncoder.encode("pass"))
-                .email("test@mail.com")
+                .username(UsersNames.USER.getName())
+                .password(passwordEncoder.encode(UsersNames.USER.getPassword()))
+                .email(UsersNames.USER.getEmail())
                 .accountNonExpired(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(false)
@@ -38,9 +38,9 @@ public class BootstrapUser implements ApplicationListener<ContextRefreshedEvent>
                 .authorities(Sets.newHashSet(new Authority(Role.USER))).build();
 
         ApplicationUser admin = ApplicationUser.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("pass"))
-                .email("test2@mail.com")
+                .username(UsersNames.ADMINISTRATOR.getName())
+                .password(passwordEncoder.encode(UsersNames.ADMINISTRATOR.getPassword()))
+                .email(UsersNames.ADMINISTRATOR.getEmail())
                 .accountNonExpired(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
@@ -48,17 +48,51 @@ public class BootstrapUser implements ApplicationListener<ContextRefreshedEvent>
                 .authorities(Sets.newHashSet(new Authority(Role.ADMIN))).build();
 
         ApplicationUser userWitchExpriredCredentials = ApplicationUser.builder()
-                .username("expiredCredentials")
-                .password(passwordEncoder.encode("pass"))
-                .email("test3@mail.com")
+                .username(UsersNames.EXPIRED_CREDENTIALS_USER.getName())
+                .password(passwordEncoder.encode(UsersNames.EXPIRED_CREDENTIALS_USER.getPassword()))
+                .email(UsersNames.EXPIRED_CREDENTIALS_USER.getEmail())
                 .accountNonExpired(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(false)
                 .enabled(true)
                 .authorities(Sets.newHashSet(new Authority(Role.ADMIN))).build();
 
+        ApplicationUser userWitchExpriredAccount = ApplicationUser.builder()
+                .username(UsersNames.EXPIRED_ACCOUNT_USER.getName())
+                .password(passwordEncoder.encode(UsersNames.EXPIRED_ACCOUNT_USER.getPassword()))
+                .email(UsersNames.EXPIRED_ACCOUNT_USER.getEmail())
+                .accountNonExpired(false)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .enabled(true)
+                .authorities(Sets.newHashSet(new Authority(Role.ADMIN))).build();
+
+
+        ApplicationUser userWitchLockedAccount = ApplicationUser.builder()
+                .username(UsersNames.LOCKED_ACCOUNT_USER.getName())
+                .password(passwordEncoder.encode(UsersNames.LOCKED_ACCOUNT_USER.getPassword()))
+                .email(UsersNames.LOCKED_ACCOUNT_USER.getEmail())
+                .accountNonExpired(true)
+                .accountNonLocked(false)
+                .credentialsNonExpired(true)
+                .enabled(true)
+                .authorities(Sets.newHashSet(new Authority(Role.ADMIN))).build();
+
+        ApplicationUser userEnabled = ApplicationUser.builder()
+                .username(UsersNames.ENABLED_USER.getName())
+                .password(passwordEncoder.encode(UsersNames.ENABLED_USER.getPassword()))
+                .email(UsersNames.ENABLED_USER.getEmail())
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .enabled(false)
+                .authorities(Sets.newHashSet(new Authority(Role.ADMIN))).build();
+
         appUserRepository.save(user);
         appUserRepository.save(admin);
         appUserRepository.save(userWitchExpriredCredentials);
+        appUserRepository.save(userWitchExpriredAccount);
+        appUserRepository.save(userWitchLockedAccount);
+        appUserRepository.save(userEnabled);
     }
 }

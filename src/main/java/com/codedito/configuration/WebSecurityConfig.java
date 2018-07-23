@@ -1,6 +1,5 @@
 package com.codedito.configuration;
 
-import com.codedito.service.CustomUserService;
 import com.codedito.service.UserAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,21 +8,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private CustomUserService userService;
-    private PasswordEncoder passwordEncoder;
     private AuthenticationProvider authenticationProvider;
 
     @Autowired
-    public WebSecurityConfig(CustomUserService userService, PasswordEncoder passwordEncoder, UserAuthenticationProvider authenticationProvider) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+    public WebSecurityConfig(UserAuthenticationProvider authenticationProvider) {
         this.authenticationProvider = authenticationProvider;
     }
 
